@@ -36,6 +36,8 @@ JSONL_NAME=jsonl/$NAME_PREFIX.jsonl
 # Mode-specific settings and execution
 if [ "$MODE_TYPE" == "cot" ]; then
     echo "Running in 'cot' mode..."
+    echo "DATA_ROOT: $DATA_ROOT"
+    echo "JSONL_NAME: $JSONL_NAME" 
     NAME_SUFFIX=stage_1_token_level_interleave_cot_xcodec
     MMAP_NAME=mmap/${NAME_PREFIX}_${NAME_SUFFIX}_$ORDER
 

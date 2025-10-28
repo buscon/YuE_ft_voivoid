@@ -1,0 +1,16 @@
+datasets:
+  - name: voivoid
+    type: npy
+    path: ../voivoid_dataset/npy/
+    jsonl: ../voivoid_dataset/jsonl/
+    mmap: ../voivoid_dataset/mmap/
+    split: train
+    weight: 1.0
+    max_seq_len: 131072
+    max_batch_tokens: 4096
+    shuffle: True
+    drop_last: True
+    num_workers: 4
+    pin_memory: True
+    persistent_workers: True
+

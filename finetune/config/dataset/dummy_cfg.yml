@@ -1,0 +1,16 @@
+datasets:
+  - name: dummy
+    type: npy
+    path: example/dummy_npy/
+    jsonl: example/dummy_jsonl/
+    mmap: example/dummy_mmap/
+    split: train
+    weight: 1.0
+    max_seq_len: 131072
+    max_batch_tokens: 4096
+    shuffle: True
+    drop_last: True
+    num_workers: 4
+    pin_memory: True
+    persistent_workers: True
+

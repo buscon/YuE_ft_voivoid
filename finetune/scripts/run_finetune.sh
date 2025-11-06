@@ -96,9 +96,11 @@ fi
 # ==============================
 # Configuration Parameters
 # ==============================
+#
+BASE=$(pwd)
 
 # Hardware configuration
-NUM_GPUS=8
+NUM_GPUS=1
 MASTER_PORT=9999
 # Uncomment and modify if you need specific GPUs
 # export CUDA_VISIBLE_DEVICES=4,5,6,7
@@ -108,22 +110,24 @@ PER_DEVICE_TRAIN_BATCH_SIZE=1
 PER_DEVICE_EVAL_BATCH_SIZE=1
 GLOBAL_BATCH_SIZE=$((NUM_GPUS*PER_DEVICE_TRAIN_BATCH_SIZE))
 USE_BF16=true
-SEQ_LENGTH=8192
+SEQ_LENGTH=4096
 TRAIN_ITERS=150
 NUM_TRAIN_EPOCHS=10
 
 # Data paths (replace with your actual paths)
-DATA_PATH="<weight_and_path_to_data_X>"     
-DATA_CACHE_PATH="<path_to_tokenizer_model>"
+#DATA_PATH="<weight_and_path_to_data_X>"     
+DATA_PATH="$BASE/example/mmap/voidvoid_icl_text_document"
+#DATA_CACHE_PATH="<path_to_tokenizer_model>"
+DATA_CACHE_PATH="$BASE/cache"
 
 # Set comma-separated list of proportions for training, validation, and test split
 DATA_SPLIT="900,50,50"
 
 # Model configuration
-TOKENIZER_MODEL_PATH="<path_to_tokenizer_model>"
+TOKENIZER_MODEL_PATH="'"$BASE"'/tokenizer"
 MODEL_NAME="m-a-p/YuE-s1-7B-anneal-en-cot"
-MODEL_CACHE_DIR="<path_to_model_cache>"
-OUTPUT_DIR="<path_to_output_dir>"
+MODEL_CACHE_DIR="'"$BASE"'/model_cache"
+OUTPUT_DIR="$BASE/checkpoints/voidvoid_lora"
 DEEPSPEED_CONFIG=config/ds_config_zero2.json
 
 # LoRA configuration
@@ -134,7 +138,7 @@ LORA_TARGET_MODULES="q_proj k_proj v_proj o_proj"
 # Logging configuration
 LOGGING_STEPS=5
 SAVE_STEPS=5
-USE_WANDB=true
+USE_WANDB=false
 WANDB_API_KEY="<your_wandb_api_key>"
 RUN_NAME="YuE-ft-lora"
 

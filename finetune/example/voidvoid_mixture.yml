@@ -1,0 +1,7 @@
+# example/voidvoid_mixture.yml
+TOKEN_COUNT_LOG_DIR: ./count_token_logs
+GLOBAL_BATCH_SIZE: 4
+SEQ_LEN: 2048
+ROUND_1: 1
+DATA_PATH: example/mmap/voidvoid_icl   # the mmap prefix/dir, not a file
+

@@ -1,3 +1,17 @@
+# --- DDP guard (auto-init) ---
+import os, tempfile, torch
+import torch.distributed as dist
+if dist.is_available() and not dist.is_initialized():
+    backend = "nccl" if torch.cuda.is_available() and torch.cuda.device_count()>0 else "gloo"
+    if all(k in os.environ for k in ("RANK","WORLD_SIZE","MASTER_ADDR","MASTER_PORT")):
+        dist.init_process_group(backend=backend, init_method="env://")
+    else:
+        init_file = os.path.join(tempfile.gettempdir(), "yue_ddp_init")
+        try:
+            if os.path.exists(init_file): os.remove(init_file)
+        except Exception: pass
+        dist.init_process_group(backend=backend, init_method=f"file://{init_file}", rank=0, world_size=1)
+# --- end DDP guard ---
 # Copyright (c) 2023, NVIDIA CORPORATION.  All rights reserved.
 import os
 import time
